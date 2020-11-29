@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>紙相撲 N☆G | 参加する</title>
+
+    <script src="mBit.js"></script>
+
+    <script src="https://chirimen.org/remote-connection/js/RelayServer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
+
+    <style>
+      body{
+        background-color:rgb(253, 241, 185);
+      }
+
+      #userName{
+        width: 100%; /*親要素いっぱい広げる*/
+        padding: 10px 15px; /*ボックスを大きくする*/
+        font-size: 36px;
+        border-radius: 3px; /*ボックス角の丸み*/
+        border: 2px solid rgb(248, 107, 13); /*枠線*/
+        box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+      }
+
+      #GoButton{
+        width: 80%;
+        height: 70px;
+        font-size: 40px;
+        margin: 40px;
+        border-color: rgb(248, 107, 13);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1  align="center" style="border-bottom: solid 3px rgb(36, 0, 243); font-size: 80px; font-family: HGP行書体;">紙相撲 NEXT☆GENERATION <br><br><strong>参加</strong></h1>
+
+    <table align="center" style="padding: 30px; border-radius: 20px 20px 20px 20px; background-color:rgb(255, 237, 134); font-size: 20px;">
+      <tr>
+        <td>
+          <p style="font-size: 30px;">
+            UserName
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input id="userName" onclick="clickText()" type="text" value="ユーザー名を入力してください..."/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button align="center" onclick="connect()" id="GoButton">Join</button>
+        </td>
+      </tr>
+    </table>
+    
+
+    <p id="log"></p>
+  </body>
+</html>
