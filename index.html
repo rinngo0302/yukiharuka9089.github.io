@@ -8,6 +8,7 @@
         <style>
             body{
                 background-color:rgb(253, 241, 185);
+                width: auto;
             }
 
             #subtitle{
@@ -20,12 +21,59 @@
             }
 
             #link{
-                padding-top: 10px; 
-                padding-left: 30px; 
-                border-radius: 70px 70px 70px 70px;
-                background-color:rgb(60, 248, 239); 
-                width: 400px;
-                font-size: 60px;
+                /* 文字サイズを1.4emに指定 */
+                font-size: 1.4em;
+
+                border-radius: 30px;
+
+                /* 文字の太さをboldに指定 */
+                font-weight: bold;
+
+                /* 縦方向に10px、
+                 * 横方向に30pxの余白を指定 */
+                padding: 10px 30px;
+
+                /* 背景色を濃い青色に指定 */
+                background-color: #248;
+
+                /* 文字色を白色に指定 */
+                color: #fff;
+
+                /* ボーダーをなくす */
+                border-style: none;
+
+                /* ボタンの影の指定
+                * 影の横幅を2px
+                * 縦長を2px
+                 * ぼかしを3px
+                    * 広がりを1px
+                 * 色を#666（グレー）に指定 */
+                box-shadow: 2px 2px 3px 1px #666;
+                -moz-box-shadow: 2px 2px 3px 1px #666;
+                -webkit-box-shadow: 2px 2px 3px 1px #666;
+
+                /* テキストの影の指定
+                 * 影の横幅を1px
+                 * 縦長を1px
+                 * ぼかしを2px
+                * 色を#000（黒）に指定 */
+                text-shadow: 1px 1px 2px #000;
+            }
+
+            button.button6:hover {
+                /* 背景色を明るい青色に指定 */
+                background-color: #24d;
+
+                /* 文字色を白色に指定 */
+                color: #fff;
+
+            }
+            #link:hover{
+                    /* 背景色を明るい青色に指定 */
+                     background-color: #24d;
+
+            /* 文字色を白色に指定 */
+                color: #fff;        
             }
 
             #introduction{
@@ -40,7 +88,7 @@
     <body align="center">
         <h1 style="border-bottom: solid 3px rgb(36, 0, 243); font-size: 100px; font-family: HGP行書体;">紙相撲 NEXT☆GENERATION</h1>
 
-        <table align="center" width="1400px" border="0" style="padding: 30px; border-radius: 20px 20px 20px 20px; background-color:rgb(255, 237, 134); font-size: 20px;">
+        <table align="center" width="auto" border="0" style="padding: 30px; border-radius: 20px 20px 20px 20px; background-color:rgb(255, 237, 134); font-size: 20px;">
             <tr>
                 <td> 
                     <table align="center" border="0">
@@ -52,13 +100,13 @@
                         <tr>
                             <td id="introduction" align="left">
                                 <p>Q. どんなゲームですか？</p>
-                                <p>みんなでmicro:bitを持ち寄って、オンライン上で紙相撲が楽しめるゲームです。</p>
+                                <p>みんなでmicro:bitを持ち寄って、<br>オンライン上で紙相撲が楽しめるゲームです。</p>
 
                                 <p>Q. 誰でもできますか？</p>
                                 <p>はい、もちろん。micro:bitを持っていれば、誰でも、無料で遊べます。</p>
                             </td>
-                            <td id="link">
-                                <h1 style="color:rgb(4, 34, 165); font-size: 50px;"><a href="join.html" target="TeadA_join">参加する！</a></h1>
+                            <td>
+                                <a id="link" href="join.html" target="TeadA_join">参加する</a>
                             </td>
                         </tr>
 
@@ -74,8 +122,8 @@
                                     誰かが遊んでいるのを自由に観戦することができます。<br>
                                 </p>
                             </td>
-                            <td id="link"">
-                                <h1 style="color:rgb(4, 34, 165); font-size: 50px;"><a href="waitching.html" target="TeamA_waitching"> 観戦 </a></h1>
+                            <td>
+                                <a id="link" href="waitching.html" target="TeamA_waitching"> 観戦 </a>
                             </td>
                         </tr>
 
@@ -92,8 +140,8 @@
                                     micro:bitと接続をして、プレイヤーからのデータでモータを動かすことができます。<br>
                                 </p>
                             </td>
-                            <td id="link">
-                                <h1 style="color:rgb(4, 34, 165); font-size: 50px;"><a href="pc.html" target="TeamA_host">ホスト</a></h1>
+                            <td>
+                                <a id="link" href="pc.html" target="TeamA_host">ホスト</a>
                             </td>
                         </tr>
                     </table>

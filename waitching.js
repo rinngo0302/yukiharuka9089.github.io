@@ -7,10 +7,6 @@ const PLAYER1 = 1;
 const PLAYER2 = 2;
 const SPECTATOR = -1;
 
-let player;
-
-let channel;
-
 let outChannel
 
 let sending = {
@@ -28,7 +24,7 @@ onload = async function()
 	sendPlayer();
 }
 
-let mdata;
+//micro:bitの値を格納する変数
 let username;
 let temperature;
 let brightness;
@@ -37,6 +33,7 @@ let accelX;
 let accelY;
 let accelZ;
 
+//データを取得
 function getMessage(msg)
 {
 	mdata = msg.data;
@@ -56,14 +53,20 @@ function getMessage(msg)
 			break;
 	}
 
-	let usernameT = document.getElementById(setPlayer + "_name");
-	let temperatureT = document.getElementById(setPlayer + "_temperature");
-	let brightnessT = document.getElementById(setPlayer + "_brightness");
-	let buttonT = document.getElementById(setPlayer + "_button");
-	let accelT = document.getElementById(setPlayer + "_accel");
-	let timeT = document.getElementById(setPlayer + "_time");
+	getMBitSensor(setPlayer);
+}
 
-	let resultT = document.getElementById(setPlayer + "_result");
+//センサの値を取得 + 表示
+function getMBitSensor(player)
+{	
+	let usernameT = document.getElementById(player + "_name");
+	let temperatureT = document.getElementById(player + "_temperature");
+	let brightnessT = document.getElementById(player + "_brightness");
+	let buttonT = document.getElementById(player + "_button");
+	let accelT = document.getElementById(player + "_accel");
+	let timeT = document.getElementById(player + "_time");
+
+	let resultT = document.getElementById(player + "_result");
 
 	username = mdata.userId;
 	temperature = mdata.sensorData.temperature;

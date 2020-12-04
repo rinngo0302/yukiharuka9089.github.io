@@ -9,10 +9,6 @@ const PLAYER1 = 1;
 const PLAYER2 = 2;
 const SPECTATOR = -1;
 
-let player;
-
-let channel;
-
 let outChannel
 
 let sending = {
@@ -33,6 +29,8 @@ onload = async function()
 }
 
 let microbit;
+let gpioPort0;
+let microBitBle;
 async function connect()
 {	  
 	microBitBle = await microBitBleFactory.connect();
@@ -43,14 +41,14 @@ async function connect()
   	await gpioPort0.export("out");
 }
 
-function motor0(s) {{
+function motor0(s) {
 	if(s==true){
 		gpioPort0.write(1);
 	} else {
 		gpioPort0.write(0);
 	}
 }
-function motor1(s) {{
+function motor1(s) {
 	if(s==true){
 		gpioPort1.write(1);
 	} else {
@@ -58,7 +56,7 @@ function motor1(s) {{
 	}
 }
 
-let mdata;
+//micro:bitの値を格納する変数
 let username;
 let temperature;
 let brightness;
@@ -66,6 +64,7 @@ let button;
 let accelX;
 let accelY;
 let accelZ;
+let acc;
 
 function getMessage(msg)
 {
@@ -85,7 +84,11 @@ function getMessage(msg)
 			setPlayer = "player2";
 			break;
 	}
+}
 
+//センサの値を取得 + 表示
+function getMBitSensor(player)
+{	
 	let usernameT = document.getElementById(setPlayer + "_name");
 	let temperatureT = document.getElementById(setPlayer + "_temperature");
 	let brightnessT = document.getElementById(setPlayer + "_brightness");
@@ -104,22 +107,10 @@ function getMessage(msg)
 	accelZ = mdata.sensorData.acceleration.z;
 	let time = mdata.time;
 
-	
-	var accel = evalAccel(acc);
-	if (accel > 2000) {
-	  //AuserTd.style.backgroundColor = "red";
-	  switch (mdata.witchPlayer) {
-		case PLAYER1:
-		  motor0(true);
-		  break;
-  
-		case PLAYER2:
-		  motor1(true);
-		  break;
-	  }
-	} else {
-	  motor0(false);
-	  motor1(false);
+	acc = {
+		x: accelX,
+		y: accelY,
+		z: accelZ,
 	}
 
 	usernameT.innerText = mdata.userId;
@@ -139,6 +130,26 @@ function getMessage(msg)
 	console.log("取得");
 }
 
+function moveMotor()
+{
+	var accel = evalAccel(acc);
+	if (accel > 2000) {
+	  //AuserTd.style.backgroundColor = "red";
+	  switch (mdata.witchPlayer) {
+		case PLAYER1:
+		  motor0(true);
+		  break;
+  
+		case PLAYER2:
+		  motor1(true);
+		  break;
+	  }
+	} else {
+	  motor0(false);
+	  motor1(false);
+	}
+}
+
 async function sendPlayer()
 {
 	let relay = await RelayServer("achex", "chirimenSocket" );
@@ -153,5 +164,5 @@ async function sendPlayer()
 }
 
 function evalAccel(acc) {
-	return (Math.abs(acc.x) + Math.abs(acc.y) + 1023 - Math.abs(acc.z));
+	return Math.abs(acc.x) + Math.abs(acc.y) + 1023 - Math.abs(acc.z);
 }
