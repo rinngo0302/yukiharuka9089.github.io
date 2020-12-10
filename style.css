@@ -1,0 +1,183 @@
+@charset "utf-8";
+
+
+/*////////////////////////////// all //////////////////////////////////////*/
+
+#mainTitle{
+    border-bottom: solid 3px rgb(36, 0, 243); 
+    font-size: 100px;
+    font-family: HGP行書体;
+    text-align: center;
+}
+
+#tab_mainTable{
+    padding: 30px; border-radius: 20px 20px 20px 20px; 
+    background-color:rgb(255, 237, 134); 
+    font-size: 20px;
+    width: "200px";
+}
+
+#tab_tr{
+    width: 1000px; 
+    background-color: #19ff80; 
+    padding: 20px; 
+    border-radius: 200px; 
+    border-width: 50px;
+}
+#tab_table{
+    padding: 20px;
+    width: "2000px";
+}
+#tab_td{
+    border-radius: 20px;
+}
+
+/*////////////////////////////// index.html //////////////////////////////////////*/
+
+body{
+    background-color:rgb(253, 241, 185);
+    width: auto;
+}
+
+.tab{
+    background-color: #0069cc;
+    background-size: 100%;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 21px;
+    width: auto;
+    margin: 0px;
+    padding: 10px 70px;
+    box-shadow: 2px 2px 3px 1px #666;
+    -moz-box-shadow: 2px 2px 3px 1px #666;
+    -webkit-box-shadow: 2px 2px 3px 1px #666;
+}
+.tab:hover{
+    background-color: #3a97ee
+}
+
+.tab_now{
+    background-color: #3a97ee;
+    background-size: 100%;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 21px;
+    width: auto;
+    margin: 0px;
+    padding: 10px 70px;
+    box-shadow: 2px 2px 3px 1px #666;
+    -moz-box-shadow: 2px 2px 3px 1px #666;
+    -webkit-box-shadow: 2px 2px 3px 1px #666;
+}
+
+.subtitle{
+    border-left: solid 10px #51ff00;
+    background-color:rgb(185, 250, 165);
+    border-radius: 0px 10px 10px 0px;
+    text-align: center;
+    width: 100%;
+}
+
+#link{
+    /* 文字サイズを1.4emに指定 */
+    font-size: 50px;
+
+    border-radius: 40px;
+
+    /* 文字の太さをboldに指定 */
+    font-weight: bold;
+
+    /* 縦方向に10px、
+     * 横方向に30pxの余白を指定 */
+    padding: 10px 30px;
+
+    /* 背景色を濃い青色に指定 */
+    background-color: #248;
+
+    /* 文字色を白色に指定 */
+    color: #fff;
+
+    /* ボーダーをなくす */
+    border-style: none;
+
+    /* ボタンの影の指定
+    * 影の横幅を2px
+    * 縦長を2px
+     * ぼかしを3px
+        * 広がりを1px
+     * 色を#666（グレー）に指定 */
+    box-shadow: 2px 2px 3px 5px #666;
+    -moz-box-shadow: 2px 2px 3px 1px #666;
+    -webkit-box-shadow: 2px 2px 3px 1px #666;
+
+    /* テキストの影の指定
+     * 影の横幅を1px
+     * 縦長を1px
+     * ぼかしを2px
+    * 色を#000（黒）に指定 */
+    text-shadow: 1px 1px 2px #000;
+}
+
+#link:hover{
+    /* 背景色を明るい青色に指定 */
+    background-color: #24d;
+
+    /* 文字色を白色に指定 */
+    color: #fff;        
+}
+
+.introduction{
+    padding-left: 30px; 
+    border-radius: 20px 20px 20px 20px; 
+    background-color:rgb(255, 195, 66); 
+    font-size: 25px;
+    text-align: left;
+    margin-bottom: 400px;
+    width: 100%;
+}
+
+
+/*////////////////////////////// join.html //////////////////////////////////////*/
+
+.join_text{
+    width: 500px; /*親要素いっぱい広げる*/
+    padding: 10px 15px; /*ボックスを大きくする*/
+    font-size: 36px;
+    border-radius: 3px; /*ボックス角の丸み*/
+    border: 2px solid rgb(248, 107, 13); /*枠線*/
+    box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+}
+
+#GoButton{
+    width: 300px;
+    text-align: center;
+    height: 70px;
+    font-size: 40px;
+    margin: 40px;
+    box-shadow: 1px 1px 10px #000;
+    background-color: rgb(248, 107, 13);
+    border-radius: 30px;
+}
+#GoButton:hover{
+    background-color: rgb(250, 166, 110);
+}
+#GoButton:active{
+    background-color: #fdc49e;
+}
+
+
+/*////////////////////////////// qa.html //////////////////////////////////////*/
+
+.question{
+    color: #001aff;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.answer{
+    color: #ff0000;
+    font-size: 40px;
+    font-weight: bold;
+}

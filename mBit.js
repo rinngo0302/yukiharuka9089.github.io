@@ -1,3 +1,8 @@
+//ユーザー名を入力したか
+let isWriteUsername = false;
+//チャンネルコードを入力したか
+let isWriteChannelCode = false;
+
 //チャンネル一覧
 const TEAM_A_SUMOU_WITCH_PLAYER = "TEAM_A_SUMOU_WITCH_PLAYER";
 const TEAM_A_SUMOU_PLAYER_DATA = "TEAM_A_SUMOU_PLAYER_DATA";
@@ -15,6 +20,7 @@ let getPlayerChannel;
 
 let inChannel;
 let outChannel;
+let channelCode;
 
 let relay;
 
@@ -34,6 +40,14 @@ let isWatch = false;
 
 async function connect()
 {
+	if (!isWriteUsername || !isWriteChannelCode)
+	{
+		alert("ユーザー名とチャンネルコードの入力をしてください。");
+		return;
+	}
+
+	channelCode = document.getElementById("channelCode");
+
 	var Log = document.getElementById("log");
 
 	Log.innerHTML = "少々お待ちください...";
@@ -60,13 +74,13 @@ async function getWitchPlayer()
 	//どのプレイヤーになるかのデータを取得するための変数
 	let GettingDataRelay = await RelayServer("achex", "chirimenSocket" );
 	let GettingDataChannel;
-	GettingDataChannel = await GettingDataRelay.subscribe(TEAM_A_SUMOU_WITCH_PLAYER);
+	GettingDataChannel = await GettingDataRelay.subscribe(channelCode + TEAM_A_SUMOU_WITCH_PLAYER);
 
 	GettingDataChannel.onmessage = setGetFlag;
 
 	relay = await RelayServer("achex", "chirimenSocket" );
-	inChannel = await relay.subscribe(TEAM_A_SUMOU_WITCH_PLAYER);
-	outChannel = await relay.subscribe(TEAM_A_SUMOU_PLAYER_DATA);
+	inChannel = await relay.subscribe(channelCode + TEAM_A_SUMOU_WITCH_PLAYER);
+	outChannel = await relay.subscribe(channelCode + TEAM_A_SUMOU_PLAYER_DATA);
 
 	const result = await getWitchPlayerWait();
 
@@ -100,11 +114,25 @@ async function getWitchPlayerWait()
 	return 0;
 }
 
-function clickText()
+function clickName()
 {
-	let text = document.getElementById("userName");
+	if (!isWriteUsername)
+	{
+		let text = document.getElementById("userName");
+		text.value = "";
 
-	text.value = "";
+		isWriteUsername = true;
+	}
+}
+function clickChannel()
+{
+	if (!isWriteChannelCode)
+	{
+		let text = document.getElementById("channelCode");
+		text.value = "";
+
+		isWriteChannelCode = true;
+	}
 }
 
 function setGetFlag(msg)

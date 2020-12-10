@@ -7,7 +7,9 @@ const PLAYER1 = 1;
 const PLAYER2 = 2;
 const SPECTATOR = -1;
 
+let channelCode;
 let outChannel
+let getChannel;
 
 let sending = {
 	player1_exist: false,

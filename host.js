@@ -9,24 +9,14 @@ const PLAYER1 = 1;
 const PLAYER2 = 2;
 const SPECTATOR = -1;
 
+let channelCode;
 let outChannel
+let getChannel;
 
 let sending = {
 	player1_exist: false,
 	player2_exist: false
 };
-
-onload = async function()
-{
-	let connectButton = document.getElementById("connect");
-	connectButton.onclick = connect;
-	// webSocketリレーの初期化
-	var relay = await RelayServer("achex", "chirimenSocket" );
-	getChannel = await relay.subscribe(TEAM_A_SUMOU_PLAYER_DATA);
-	console.log("achex web socketリレーサービスに接続しました");
-	getChannel.onmessage = getMessage;
-	sendPlayer();
-}
 
 let microbit;
 let gpioPort0;
@@ -65,7 +55,7 @@ let accelX;
 let accelY;
 let accelZ;
 let acc;
-
+let mdata;
 function getMessage(msg)
 {
 	mdata = msg.data;
@@ -84,6 +74,19 @@ function getMessage(msg)
 			setPlayer = "player2";
 			break;
 	}
+}
+
+function clickChannel()
+{
+	let inputChannel = document.getElementById("channelCode");
+	inputChannel.value = "";
+}
+
+function gameStart()
+{
+	let inputChannel = document.getElementById("channelCode");
+	channelCode = inputChannel.value;
+	sendPlayer();
 }
 
 //センサの値を取得 + 表示
@@ -152,8 +155,8 @@ function moveMotor()
 
 async function sendPlayer()
 {
-	let relay = await RelayServer("achex", "chirimenSocket" );
-	outChannel = await relay.subscribe(TEAM_A_SUMOU_WITCH_PLAYER);
+	let relay = RelayServer("achex", "chirimenSocket" );
+	outChannel = await relay.subscribe(channelCode + TEAM_A_SUMOU_WITCH_PLAYER);
 
 	while (true)
 	{
