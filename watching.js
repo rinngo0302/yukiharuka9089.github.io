@@ -1,30 +1,47 @@
 //チャンネル一覧
-const TEAM_A_SUMOU_WITCH_PLAYER = "TEAM_A_SUMOU_WITCH_PLAYER";
-const TEAM_A_SUMOU_PLAYER_DATA = "TEAM_A_SUMOU_PLAYER_DATA";
+const SUMOU_NG_FROM_JOIN = "SUMOU_NG_FROM_JOIN";
+const SUMOU_NG_FROM_HOST = "SUMOU_NG_FROM_HOST";
 
 //Player
 const PLAYER1 = 1;
 const PLAYER2 = 2;
 const SPECTATOR = -1;
 
-let channelCode;
-let outChannel
-let getChannel;
+//リレー
+let relay;
 
+//チャンネル
+let channelCode;
+let inChannel;
+
+//送られてくる
 let sending = {
 	player1_exist: false,
 	player2_exist: false
 };
 
-onload = async function()
+async function connect()
 {
-	// webSocketリレーの初期化
-	var relay = await RelayServer("achex", "chirimenSocket" );
-	getChannel = await relay.subscribe(TEAM_A_SUMOU_PLAYER_DATA);
+	channelCode = document.getElementById("channelCode").value;
+
+	relay = await RelayServer("achex", "chirimenSocket" );
+	inChannel = await relay.subscribe(channelCode + SUMOU_NG_FROM_JOIN);//join.jsのmicro:bitのデータを取得する用のチャンネルを設定
+	inChannel.onmessage = getMessage;//join.jsからデータを取得したとき
 	console.log("achex web socketリレーサービスに接続しました");
-	getChannel.onmessage = getMessage;
-	sendPlayer();
 }
+
+let getData;
+function getMessage(msg)
+{
+	getData = msg.data;
+	
+	let setPlayer = (getData.whitchPlayer == PLAYER1) ? "player1" : "player2";//送られてきたデータが "player1" か "player2" かを調べる
+
+	console.log(getData);
+
+	getMBitSensor(setPlayer);//プレイヤーのmicro:bitのセンサのデータを表示(第一引数: playerの種類, 第二引数: micro:bitのセンサなどのデータ)
+}
+
 
 //micro:bitの値を格納する変数
 let username;
@@ -34,33 +51,10 @@ let button;
 let accelX;
 let accelY;
 let accelZ;
-
-//データを取得
-function getMessage(msg)
-{
-	mdata = msg.data;
-	
-	let setPlayer;
-
-	switch (mdata.witchPlayer)
-	{
-		case PLAYER1:
-			setPlayer = "player1"; 
-			sending.player1_exist = true;
-			break;
-
-		case PLAYER2:
-			sending.player2_exist = true;
-			setPlayer = "player2";
-			break;
-	}
-
-	getMBitSensor(setPlayer);
-}
-
+let acc;
 //センサの値を取得 + 表示
 function getMBitSensor(player)
-{	
+{
 	let usernameT = document.getElementById(player + "_name");
 	let temperatureT = document.getElementById(player + "_temperature");
 	let brightnessT = document.getElementById(player + "_brightness");
@@ -70,19 +64,25 @@ function getMBitSensor(player)
 
 	let resultT = document.getElementById(player + "_result");
 
-	username = mdata.userId;
-	temperature = mdata.sensorData.temperature;
-	brightness = mdata.sensorData.brightness;
-	button = mdata.sensorData.button;
-	accelX = mdata.sensorData.acceleration.x;
-	accelY = mdata.sensorData.acceleration.y;
-	accelZ = mdata.sensorData.acceleration.z;
-	let time = mdata.time;
+	username = getData.userId;
+	temperature = getData.sensorData.temperature;
+	brightness = getData.sensorData.brightness;
+	button = getData.sensorData.button;
+	accelX = getData.sensorData.acceleration.x;
+	accelY = getData.sensorData.acceleration.y;
+	accelZ = getData.sensorData.acceleration.z;
+	let time = getData.time;
 
-	usernameT.innerText = mdata.userId;
-	temperatureT.innerText = mdata.sensorData.temperature;
-	brightnessT.innerText = mdata.sensorData.brightness;
-	buttonT.innerText = mdata.sensorData.button;
+	acc = {
+		x: accelX,
+		y: accelY,
+		z: accelZ,
+	}
+
+	usernameT.innerText = getData.userId;
+	temperatureT.innerText = getData.sensorData.temperature;
+	brightnessT.innerText = getData.sensorData.brightness;
+	buttonT.innerText = getData.sensorData.button;
 	accelT.innerText = `x: ${accelX} y: ${accelY} z: ${accelZ}`;
 	timeT.innerText = time;
 
@@ -93,18 +93,17 @@ function getMBitSensor(player)
 				acceleration: x: ${accelX} y: ${accelY} z: ${accelZ}<br>
 				time: ${time}`;
 
-	console.log("取得");
+	console.log("micro:bitの値を取得！");
 }
 
-async function sendPlayer()
-{
-	let relay = await RelayServer("achex", "chirimenSocket" );
-	outChannel = await relay.subscribe(TEAM_A_SUMOU_WITCH_PLAYER);
+// async function sendPlayer()
+// {
+// 	relay = await RelayServer("achex", "chirimenSocket" );
 
-	while (true)
-	{
-		outChannel.send(sending);
+// 	while (true)
+// 	{
+// 		outChannel.send(sending);
 
-		await sleep(500);
-	}
-}
+// 		await sleep(500);
+// 	}
+// }

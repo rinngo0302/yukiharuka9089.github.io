@@ -16,19 +16,15 @@
 
         <table align="center" id="tab_mainTable" border="0">
             <tr>
-                <td>
-                    <button id="connect" onclick="connect()">micro:bitと接続</button>
+                <td align="center">
+                  <input class="join_text" id="channelCode" type="text" placeholder="チャンネルコード...">
                 </td>
             </tr>
-            <tr>
+             <tr>
                 <td align="center">
-                  <input class="join_text" id="channelCode" onclick="clickChannel()" type="text" value="コード...">
+                  <div id="GoButton" onclick="connect()" style="width">Start!!</div>
                 </td>
-              </tr>
-                <td align="center">
-                  <div id="GoButton" onclick="gameStart()" style="width">Start!!</div>
-                </td>
-              <tr>
+            </tr>
 
             <tr>
                 <td class="introduction">
