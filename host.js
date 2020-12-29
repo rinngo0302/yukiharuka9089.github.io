@@ -152,7 +152,7 @@ function moveMotor()
 	var accel = evalAccel(acc);
 	if (accel > 2000) {
 	  //AuserTd.style.backgroundColor = "red";
-	  switch (mdata.whitchPlayer) {
+	  switch (getData.whitchPlayer) {
 		case PLAYER1:
 		  motor0(true);
 		  break;
