@@ -35,7 +35,7 @@ function getMessage(msg)
 {
 	getData = msg.data;
 	
-	let setPlayer = (getData.whitchPlayer == PLAYER1) ? "player1" : "player2";//送られてきたデータが "player1" か "player2" かを調べる
+	let setPlayer = (getData.whichPlayer == PLAYER1) ? "player1" : "player2";//送られてきたデータが "player1" か "player2" かを調べる
 
 	console.log(getData);
 

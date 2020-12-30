@@ -30,7 +30,7 @@ let mdata = {
 //host.jsへ送信する変数(オブジェクト型)
 let sending = {
 	userId: "default",
-	whitchPlayer: SPECTATOR
+	whichPlayer: SPECTATOR
 	//あとmicro:bit
 };
 
@@ -85,7 +85,7 @@ async function canConnect()//connect関数で呼び出し済み
 	return true;
 }
 
-async function canConnectWait()//getWhitchPlayer関数で呼び出し済み
+async function canConnectWait()//getWhichPlayer関数で呼び出し済み
 {
 	for (let i = 0; i < 1000; i++)//データが来るまで待機
 	{
@@ -135,12 +135,12 @@ async function sendingData()//データをhost.jsへ送信
 		let time = new Date().toString();
 
 		sending.userId = username;
-		sending.whitchPlayer = player;
+		sending.whichPlayer = player;
 
 		sending.sensorData = sensorData;
 		sending.time = time;
 
-		console.log(`name: ${sending.userId}\nwhitchPlayer: ${sending.whitchPlayer}`);
+		console.log(`name: ${sending.userId}\nwhichPlayer: ${sending.whichPlayer}`);
 
 		outChannel.send(sending);
 

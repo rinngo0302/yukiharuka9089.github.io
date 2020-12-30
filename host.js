@@ -17,7 +17,7 @@ let inChannel;
 let relay;
 
 //join.jsへ送るデータを格納する変数(オブジェクト型)
-let sendingWhitchPlayer = {
+let sendingWhichPlayer = {
 	player1_exist: false,
 	player2_exist: false
 };
@@ -41,7 +41,7 @@ async function connect()
 	inChannel = await relay.subscribe(channelCode + SUMOU_NG_FROM_JOIN);//join.jsのmicro:bitのデータを取得する用のチャンネルを設定
 	inChannel.onmessage = getMessage;//join.jsからデータを取得したとき
 
-	sendWhitchPlayer();//プレイヤーの空き具合をjoin.jsへ送信する関数を呼び出す(while)
+	sendWhichPlayer();//プレイヤーの空き具合をjoin.jsへ送信する関数を呼び出す(while)
 	//onload内↑
 
 	//ホスト側のmicro:bit(モータで動かすやつ)の設定
@@ -85,15 +85,15 @@ function getMessage(msg)
 	
 	let setPlayer;//"player1" か "player2" かを格納するローカル変数(string型)
 
-	switch (getData.whitchPlayer)
+	switch (getData.whichPlayer)
 	{
 		case PLAYER1:
 			setPlayer = "player1"; 
-			sendingWhitchPlayer.player1_exist = true;
+			sendingWhichPlayer.player1_exist = true;
 			break;
 
 		case PLAYER2:
-			sendingWhitchPlayer.player2_exist = true;
+			sendingWhichPlayer.player2_exist = true;
 			setPlayer = "player2";
 			break;
 	}
@@ -152,7 +152,7 @@ function moveMotor()
 	var accel = evalAccel(acc);
 	if (accel > 2000) {
 	  //AuserTd.style.backgroundColor = "red";
-	  switch (mdata.whitchPlayer) {
+	  switch (getData.whichPlayer) {
 		case PLAYER1:
 		  motor0(true);
 		  break;
@@ -168,12 +168,12 @@ function moveMotor()
 }
 
 //join.jsへプレイヤーの空きを送信する
-async function sendWhitchPlayer()//connect関数内で呼ぶ出される
+async function sendWhichPlayer()//connect関数内で呼ぶ出される
 {
 	outChannel = await relay.subscribe(channelCode + SUMOU_NG_FROM_HOST);//join.jsにプレイヤーの空き具合を送信する
 	while (true)
 	{
-		outChannel.send(sendingWhitchPlayer);//プレイヤーの空きを送信する(to join.js)
+		outChannel.send(sendingWhichPlayer);//プレイヤーの空きを送信する(to join.js)
 		console.log("送信...");
 
 		await sleep(500);
