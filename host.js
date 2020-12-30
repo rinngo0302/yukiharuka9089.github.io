@@ -145,13 +145,16 @@ function getMBitSensor(player)
 				time: ${time}`;
 
 	console.log("micro:bitの値を取得！");
+	
+	moveMotor();
 }
 
 function moveMotor()
 {
 	var accel = evalAccel(acc);
 	if (accel > 1500) {
-	  //AuserTd.style.backgroundColor = "red";
+	  let userNameTag = document.getElementById("player1_name");
+	  userNameTag.style.backgroundColor = "red";
 	  switch (getData.whichPlayer) {
 		case PLAYER1:
 		  motor0(true);
