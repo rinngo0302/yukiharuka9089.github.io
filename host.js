@@ -150,7 +150,7 @@ function getMBitSensor(player)
 function moveMotor()
 {
 	var accel = evalAccel(acc);
-	if (accel > 2000) {
+	if (accel > 1500) {
 	  //AuserTd.style.backgroundColor = "red";
 	  switch (getData.whichPlayer) {
 		case PLAYER1:
