@@ -1,6 +1,9 @@
 //チャンネル一覧
 const SUMOU_NG_FROM_JOIN = "SUMOU_NG_FROM_JOIN";
 const SUMOU_NG_FROM_HOST = "SUMOU_NG_FROM_HOST";
+const SUMOU_NG_HOSTMESSAGE_PLAYER1 = "SUMOU_NG_HOSTMESSAGE_PLAYER1";
+const SUMOU_NG_HOSTMESSAGE_PLAYER2 = "SUMOU_NG_HOSTMESSAGE_PLAYER2";
+const SUMOU_NG_WINJUDGE = "SUMOU_NG_WINJUDGE";
 
 //プレイヤーの定数
 const PLAYER1 = 1;
@@ -17,6 +20,8 @@ let getData = false;
 let inChannel;
 let outChannel;
 let channelCode;
+let inJudgeChannel;
+let inHostMessageChannel;
 
 //リレー
 let relay;
@@ -30,7 +35,7 @@ let mdata = {
 //host.jsへ送信する変数(オブジェクト型)
 let sending = {
 	userId: "default",
-	whichPlayer: SPECTATOR
+	whichPlayer: undefined
 	//あとmicro:bit
 };
 
@@ -38,8 +43,12 @@ let player;
 
 let isWatch = false;
 
+let Log;
+
 async function connect()
 {
+	setLoading();
+
 	channelCode = document.getElementById("channelCode").value;//チャンネルコードの取得
 	console.log("channelCode: " + channelCode);
 
@@ -48,7 +57,7 @@ async function connect()
 	inChannel = await relay.subscribe(channelCode + SUMOU_NG_FROM_HOST);//host.jsのプレイヤーの空き具合を取得するためのチャンネル
 	inChannel.onmessage = setPlayer;
 
-	var Log = document.getElementById("log");//結果をユーザーに示すためのタグを取得
+	Log = document.getElementById("log");//結果をユーザーに示すためのタグを取得
 
 	Log.innerHTML = "少々お待ちください...";
 
@@ -62,10 +71,34 @@ async function connect()
 
 	if (!await canConnect())//接続できたかできていないかの取得
 	{
+		deleteLoading();
 		alert("Error: 接続できませんでした！");
 		Log.innerHTML = "Error: 接続できませんでした。";
 		return;
 	}
+
+	if (player == SPECTATOR)
+	{
+		deleteLoading();
+		alert("申し訳ありませんが、プレイヤーは満員でした。")
+		Log.innerHTML = "プレイヤーが抜けてから、入り直してください。";
+		return;
+	}
+
+	inJudgeChannel = await relay.subscribe(channelCode + SUMOU_NG_WINJUDGE);
+	inJudgeChannel.onmessage = getJudge;
+
+	switch (player)
+	{
+		case PLAYER1:
+			inHostMessageChannel = await relay.subscribe(channelCode + SUMOU_NG_HOSTMESSAGE_PLAYER1); break;
+
+		case PLAYER2:
+			inHostMessageChannel = await relay.subscribe(channelCode + SUMOU_NG_HOSTMESSAGE_PLAYER2); break;
+	}
+	inHostMessageChannel.onmessage = getHostMessage;
+
+	deleteLoading();
 
 	alert("準備が整いました！");
 	Log.innerHTML = `${document.getElementById("userName").value} さん、それではお楽しみください！`;
@@ -115,7 +148,12 @@ function setPlayer(msg)
 		console.log("プレイヤーを決めます");
 		if (mdata.player1_exist)
 		{
-			player = PLAYER2;
+			if (!mdata.player2_exist)
+			{
+				player = PLAYER2;
+			} else {
+				player = SPECTATOR;
+			}
 		} else {
 			player = PLAYER1;
 		}
@@ -146,4 +184,47 @@ async function sendingData()//データをhost.jsへ送信
 
 		await sleep(1000);
 	}
+}
+
+async function getJudge(msg)
+{
+	if (msg.data == player)
+	{
+		alert("あなたの勝利です！");
+		Log.innerHTML = "勝利！！";
+	} else if (msg.data != player)
+	{
+		alert("あなたの敗北です。")
+		Log.innerHTML = "敗北";
+	}
+}
+
+async function getHostMessage(msg)
+{
+	alert("ホストからのメッセージ\n" + msg.data);
+	Log.innerHTML = "ホストからのメッセージ<div>" + msg.data;
+}
+
+async function setLoading()
+{
+	let loadingArea = document.getElementById("loadArea");
+
+	let mainLoading = document.createElement("div");
+	mainLoading.id = "mainLoading";
+	mainLoading.className = "sk-chase";
+	loadingArea.appendChild(mainLoading);
+
+	let getMainLoading = document.getElementById("mainLoading");
+	let loading = new Array;
+	for (let i = 0; i < 6; i++)
+	{
+		loading.push(document.createElement("div"));
+		loading[i].className = "sk-chase-dot";
+		getMainLoading.appendChild(loading[i]);
+	}
+}
+async function deleteLoading()
+{
+	let getMainLoading = document.getElementById("mainLoading");
+	getMainLoading.remove();
 }
