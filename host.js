@@ -174,12 +174,12 @@ function moveMotor()
 	  //AuserTd.style.backgroundColor = "red";
 	  switch (getData.whichPlayer) {
 		case PLAYER1:
-			player1_motor.innerText = "×";
+			player1_motor.innerText = "〇;
 		  	motor0(true);
 		  	break;
   
 		case PLAYER2:
-			player2_motor.innerText = "×";
+			player2_motor.innerText = "〇;
 		  	motor1(true);
 		  	break;
 	  }
@@ -188,11 +188,11 @@ function moveMotor()
 	  {
 		case PLAYER1:
 			motor0(false);
-			player1_motor.innerText = "〇"; break;
+			player1_motor.innerText = "×"; break;
 
 		case PLAYER2:
 			motor1(false);
-			player2_motor.innerText = "〇"; break;
+			player2_motor.innerText = "×"; break;
 	  }
 	}
 }
