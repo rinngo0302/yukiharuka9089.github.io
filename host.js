@@ -170,7 +170,7 @@ function moveMotor()
 	let player2_motor = document.getElementById("player2_motor");
 
 	var accel = evalAccel(acc);
-	if (accel > 1500) {
+	if (accel > 2000) {
 	  //AuserTd.style.backgroundColor = "red";
 	  switch (getData.whichPlayer) {
 		case PLAYER1:
