@@ -14,66 +14,106 @@
     <body>
         <h1 id="mainTitle">紙相撲 NEXT☆GENERATION<br>ホスト</h1>
 
-        <table align="center" id="tab_mainTable" border="0">
+        <table align="center" id="tab_mainTable" border="0" style="padding: 30px; border-radius: 20px 20px 20px 20px; background-color:rgb(255, 237, 134); font-size: 20px;">
             <tr>
                 <td align="center">
                   <input class="join_text" id="channelCode" type="text" placeholder="チャンネルコード...">
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td align="center">
-                  <div id="GoButton" onclick="connect()" style="width">Start!!</div>
+                    <div id="reload" onclick="reload()">更新</div>
+                </td>
+            </tr>
+             <tr>
+                <td align="center" id="loadArea">
+                  <div id="GoButton" onclick="connect()">Start!!</div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" id="log" style="font-size: 30px;">
+                    <p></p>
                 </td>
             </tr>
 
             <tr>
                 <td class="introduction">
-                    <table  align="center" border="1">
+                    <table  align="center" border="0" style="padding: 50px;">
                         <tr>
-                            <th>Name</th>
-                            <th>Player1</th>
-                            <th>Player2</th>
+                            <th class="playerData">Name</th>
+                            <th class="playerData">Player1</th>
+                            <th class="playerData">Player2</th>
                         </tr>
         
                         <tr>
-                            <td>UserName</td>
-                            <td id="player1_name">-</td>
-                            <td id="player2_name">-</td>
+                            <td class="playerData">UserName</td>
+                            <td id="player1_name" class="playerData">-</td>
+                            <td id="player2_name" class="playerData">-</td>
                         </tr>
         
                         <tr>
-                            <td>temperature</td>
-                            <td id="player1_temperature">-</td>
-                            <td id="player2_temperature">-</td>
+                            <td class="playerData">temperature</td>
+                            <td id="player1_temperature" class="playerData">-</td>
+                            <td id="player2_temperature" class="playerData">-</td>
                         </tr>
         
                         <tr>
-                            <td>brightness</td>
-                            <td id="player1_brightness">-</td>
-                            <td id="player2_brightness">-</td>
+                            <td class="playerData">brightness</td>
+                            <td id="player1_brightness" class="playerData">-</td>
+                            <td id="player2_brightness" class="playerData">-</td>
                         </tr>
         
                         <tr>
-                            <td>button</td>
-                            <td id="player1_button">-</td>
-                            <td id="player2_button">-</td>
+                            <td class="playerData">button</td>
+                            <td id="player1_button" class="playerData">-</td>
+                            <td id="player2_button" class="playerData">-</td>
                         </tr>
         
                         <tr>
-                            <td>acceleration</td>
-                            <td id="player1_accel">-</td>
-                            <td id="player2_accel">-</td>
+                            <td class="playerData">acceleration</td>
+                            <td id="player1_accel" class="playerData">-</td>
+                            <td id="player2_accel" class="playerData">-</td>
                         </tr>
         
                         <tr>
-                            <td>time</td>
-                            <td id="player1_time">-</td>
-                            <td id="player2_time">-</td>
+                            <td class="playerData">time</td>
+                            <td id="player1_time" class="playerData">-</td>
+                            <td id="player2_time" class="playerData">-</td>
+                        </tr>
+
+                        <tr>
+                            <td class="playerData">モータ</td>
+                            <td id="player1_motor" class="playerData">-</td>
+                            <td id="player2_motor" class="playerData">-</td>
+                        </tr>
+
+                        <tr>
+                            <td class="playerData" style="color: #7421c2; font-size: 50px;"><strong>勝敗</strong></td>
+                            <td>
+                                <p id="player1_win" onclick="judge(1)">Win!!</p>
+                            </td>
+                            <td>
+                                <p id="player2_win" onclick="judge(2)">Win!!</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="playerData" style="font-size: 40px;">
+                                メッセージ
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="playerData">
+                                <textarea id="hostMessage" placeholder="メッセージ"></textarea>
+                            </td>
+                            <td align="center">
+                                <p id="player1_message" onclick="sendHostMessage(1)"> 送信</p>
+                            </td>
+                            <td align="center">
+                                <p id="player2_message" onclick="sendHostMessage(2)"> 送信</p>
+                            </td>
                         </tr>
                     </table>
-        
-                    <p id="player1_result">-</p><br>
-                    <p id="player2_result">-</p>
                 </td>
             </tr>
         </table>

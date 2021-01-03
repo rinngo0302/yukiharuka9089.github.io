@@ -62,8 +62,6 @@ function getMBitSensor(player)
 	let accelT = document.getElementById(player + "_accel");
 	let timeT = document.getElementById(player + "_time");
 
-	let resultT = document.getElementById(player + "_result");
-
 	username = getData.userId;
 	temperature = getData.sensorData.temperature;
 	brightness = getData.sensorData.brightness;
@@ -85,13 +83,6 @@ function getMBitSensor(player)
 	buttonT.innerText = getData.sensorData.button;
 	accelT.innerText = `x: ${accelX} y: ${accelY} z: ${accelZ}`;
 	timeT.innerText = time;
-
-	resultT.innerHTML = `username: ${username}<br>
-				temperature: ${temperature}<br>
-				brightness: ${brightness}<br>
-				button: ${button}<br>
-				acceleration: x: ${accelX} y: ${accelY} z: ${accelZ}<br>
-				time: ${time}`;
 
 	console.log("micro:bitの値を取得！");
 }
