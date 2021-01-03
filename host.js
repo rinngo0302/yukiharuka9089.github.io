@@ -174,7 +174,7 @@ function moveMotor()
 	  //AuserTd.style.backgroundColor = "red";
 	  switch (getData.whichPlayer) {
 		case PLAYER1:
-			player1_motor.innerText = "〇;
+			player1_motor.innerText = "〇";
 		  	motor0(true);
 		  	break;
   
