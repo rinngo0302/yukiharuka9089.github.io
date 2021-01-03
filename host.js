@@ -179,7 +179,7 @@ function moveMotor()
 		  	break;
   
 		case PLAYER2:
-			player2_motor.innerText = "〇;
+			player2_motor.innerText = "〇";
 		  	motor1(true);
 		  	break;
 	  }
