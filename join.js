@@ -178,7 +178,7 @@ async function sendingData()//データをhost.jsへ送信
 		sending.sensorData = sensorData;
 		sending.time = time;
 
-		console.log(`name: ${sending.userId}\nwhichPlayer: ${sending.whichPlayer}`);
+		//console.log(`name: ${sending.userId}\nwhichPlayer: ${sending.whichPlayer}`);
 
 		outChannel.send(sending);
 

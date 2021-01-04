@@ -122,7 +122,7 @@ function getMessage(msg)
 			break;
 	}
 
-	console.log(getData);
+	//console.log(getData);
 
 	getMBitSensor(setPlayer);//プレイヤーのmicro:bitのセンサのデータを表示(第一引数: playerの種類, 第二引数: micro:bitのセンサなどのデータ)
 }
@@ -159,7 +159,7 @@ function getMBitSensor(player)
 	accelT.innerText = `x: ${accelX} y: ${accelY} z: ${accelZ}`;
 	timeT.innerText = time;
 
-	console.log("micro:bitの値を取得！");
+	//console.log("micro:bitの値を取得！");
 
 	moveMotor();
 }
@@ -205,7 +205,7 @@ async function sendWhichPlayer()//connect関数内で呼ぶ出される
 	while (true)
 	{
 		outChannel.send(sendingWhichPlayer);//プレイヤーの空きを送信する(to join.js)
-		console.log("送信...");
+		//console.log("送信...");
 
 		await sleep(500);
 	}
