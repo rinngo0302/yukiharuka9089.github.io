@@ -37,7 +37,7 @@ function getMessage(msg)
 	
 	let setPlayer = (getData.whichPlayer == PLAYER1) ? "player1" : "player2";//送られてきたデータが "player1" か "player2" かを調べる
 
-	console.log(getData);
+	//console.log(getData);
 
 	getMBitSensor(setPlayer);//プレイヤーのmicro:bitのセンサのデータを表示(第一引数: playerの種類, 第二引数: micro:bitのセンサなどのデータ)
 }
@@ -84,17 +84,5 @@ function getMBitSensor(player)
 	accelT.innerText = `x: ${accelX} y: ${accelY} z: ${accelZ}`;
 	timeT.innerText = time;
 
-	console.log("micro:bitの値を取得！");
+	//console.log("micro:bitの値を取得！");
 }
-
-// async function sendPlayer()
-// {
-// 	relay = await RelayServer("achex", "chirimenSocket" );
-
-// 	while (true)
-// 	{
-// 		outChannel.send(sending);
-
-// 		await sleep(500);
-// 	}
-// }
