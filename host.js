@@ -36,7 +36,7 @@ let gpioPort0;
 let gpioPort1;
 let microBitBle;
 async function connect()
-{	  
+{
 	setLoading();
 
 	channelCode = document.getElementById("channelCode").value;//チャンネルコードの取得
